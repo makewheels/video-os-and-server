@@ -8,12 +8,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 视频工具类
+ *
  * @time 2020-02-03 18:59
  */
 public class VideoUtil {
 
     /**
-     * 制作m3u8文件
+     * 转码制作m3u8
      *
      * @param videoFile
      * @param videoId
@@ -55,6 +57,18 @@ public class VideoUtil {
         }
         makeM3u8Result.setTsFileList(tsFileList);
         return makeM3u8Result;
+    }
+
+    public static void deleteTranscodeFiles(MakeM3u8Result makeM3u8Result) {
+        //删除m3u8
+        makeM3u8Result.getM3u8File().delete();
+        //删除ts碎片
+        List<File> tsFileList = makeM3u8Result.getTsFileList();
+        for (File file : tsFileList) {
+            file.delete();
+        }
+        //删除文件夹
+        makeM3u8Result.getFolder().delete();
     }
 
 }

@@ -8,6 +8,7 @@ import com.eg.videoosandserver.util.VideoUtil;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -15,7 +16,7 @@ import java.util.List;
  */
 public class Run {
 
-    private static MakeM3u8Result transcoding(File videoFile, String videoId) {
+    private static MakeM3u8Result transcodingVideo(File videoFile, String videoId) {
         try {
             return VideoUtil.makeM3u8(videoFile, videoId);
         } catch (IOException e) {
@@ -26,7 +27,14 @@ public class Run {
 
     private static void uploadToObjectStorage(MakeM3u8Result makeM3u8Result, String videoId) {
         File m3u8File = makeM3u8Result.getM3u8File();
-        String base = "/videos/" + videoId + "/";
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH) + 1;
+        String monthString = month + "";
+        if (month <= 9) {
+            monthString = "0" + month;
+        }
+        String base = "/videos/" + year + "-" + monthString + "/" + videoId + "/";
         String m3u8FileUrl = BaiduCloudUtil.uploadObjectStorage(
                 m3u8File, base + m3u8File.getName());
         makeM3u8Result.setM3u8FileUrl(m3u8FileUrl);
@@ -46,11 +54,14 @@ public class Run {
         File videoFile = new File(videoFilePath);
         String videoId = RandomUtil.getString();
         //转码
-        MakeM3u8Result makeM3u8Result = transcoding(videoFile, videoId);
+        MakeM3u8Result makeM3u8Result = transcodingVideo(videoFile, videoId);
         //上传对象存储
         uploadToObjectStorage(makeM3u8Result, videoId);
+        System.out.println("upload finished!");
         //删除本地转码文件
-        System.out.println();
+        VideoUtil.deleteTranscodeFiles(makeM3u8Result);
         //通知服务器
+        //结束
+        System.exit(0);
     }
 }
