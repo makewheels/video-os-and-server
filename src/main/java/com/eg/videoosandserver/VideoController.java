@@ -1,6 +1,7 @@
 package com.eg.videoosandserver;
 
 import com.eg.videoosandserver.util.Contants;
+import com.eg.videoosandserver.video.Video;
 import com.eg.videoosandserver.video.VideoService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/video")
@@ -60,8 +62,11 @@ public class VideoController {
      * @return
      */
     @RequestMapping("/watch")
-    public String watch(@Param("videoId") String videoId) {
-        return null;
+    public String watch(@Param("videoId") String videoId, Map<String, String> map) {
+        Video video = videoService.getVideoByVideoId(videoId);
+        map.put("title", video.getVideoFileBaseName());
+        map.put("videoSourceUrl", video.getM3u8FileUrl());
+        return "watch";
     }
 
 }

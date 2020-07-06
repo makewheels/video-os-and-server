@@ -4,5 +4,6 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface VideoDao extends CrudRepository<Video,Integer> {
+public interface VideoDao extends CrudRepository<Video, Integer> {
+    Video findByVideoId(String videoId);
 }

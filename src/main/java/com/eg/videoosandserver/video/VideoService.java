@@ -34,4 +34,14 @@ public class VideoService {
         video.setVideoFileExtension(videoFileExtension);
         videoDao.save(video);
     }
+
+    /**
+     * 根据id找视频
+     *
+     * @param videoId
+     * @return
+     */
+    public Video getVideoByVideoId(String videoId) {
+        return videoDao.findByVideoId(videoId);
+    }
 }
