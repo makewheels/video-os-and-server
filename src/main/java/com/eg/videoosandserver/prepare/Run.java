@@ -1,21 +1,23 @@
 package com.eg.videoosandserver.prepare;
 
-import com.eg.videoosandserver.util.BaiduCloudUtil;
-import com.eg.videoosandserver.util.MakeM3u8Result;
-import com.eg.videoosandserver.util.RandomUtil;
-import com.eg.videoosandserver.util.VideoUtil;
+import com.eg.videoosandserver.util.*;
+import org.apache.commons.io.FilenameUtils;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
+import java.util.*;
 
 /**
  * 总的运行流程
  */
 public class Run {
-
+    /**
+     * 视频转码
+     *
+     * @param videoFile
+     * @param videoId
+     * @return
+     */
     private static MakeM3u8Result transcodingVideo(File videoFile, String videoId) {
         try {
             return VideoUtil.makeM3u8(videoFile, videoId);
@@ -25,6 +27,12 @@ public class Run {
         return null;
     }
 
+    /**
+     * 上传ts碎片到对象存储
+     *
+     * @param makeM3u8Result
+     * @param videoId
+     */
     private static void uploadToObjectStorage(MakeM3u8Result makeM3u8Result, String videoId) {
         File m3u8File = makeM3u8Result.getM3u8File();
         Calendar calendar = Calendar.getInstance();
@@ -49,8 +57,36 @@ public class Run {
         makeM3u8Result.setTsFileUrlList(tsFileUrlList);
     }
 
-    private static void notifyNewVideo() {
+    /**
+     * 准备文件名
+     *
+     * @param makeM3u8Result
+     * @param videoFile
+     */
+    private static void prepareFileName(MakeM3u8Result makeM3u8Result, File videoFile) {
+        makeM3u8Result.setVideoFileFullName(videoFile.getName());
+        makeM3u8Result.setVideoFileBaseName(FilenameUtils.getBaseName(videoFile.getName()));
+        makeM3u8Result.setVideoFileExtension(FilenameUtils.getExtension(videoFile.getName()));
+    }
 
+    /**
+     * 通知我的服务器新增视频
+     *
+     * @param makeM3u8Result
+     */
+    private static void notifyNewVideo(MakeM3u8Result makeM3u8Result) {
+        String notifyUrl = "http://" + Contants.IP + ":5002/video-os-and-server/video/notifyNewVideo";
+        Map<String, String> map = new HashMap<>();
+        map.put("password", "N9Q0HsaSniSNiQ94");
+        map.put("videoId", makeM3u8Result.getId());
+        map.put("m3u8FileUrl", makeM3u8Result.getM3u8FileUrl());
+        map.put("tsAmount", makeM3u8Result.getTsFileList().size() + "");
+        map.put("videoFileFullName", makeM3u8Result.getVideoFileFullName());
+        map.put("videoFileBaseName", makeM3u8Result.getVideoFileBaseName());
+        map.put("videoFileExtension", makeM3u8Result.getVideoFileExtension());
+        String watchUrl = HttpUtil.post(notifyUrl, map);
+        System.out.println("watchUrl:");
+        System.out.println(watchUrl);
     }
 
     public static void main(String[] args) {
@@ -59,13 +95,15 @@ public class Run {
         String videoId = RandomUtil.getString();
         //转码
         MakeM3u8Result makeM3u8Result = transcodingVideo(videoFile, videoId);
+        //准备名字
+        prepareFileName(makeM3u8Result, videoFile);
         //上传对象存储
         uploadToObjectStorage(makeM3u8Result, videoId);
         System.out.println("upload finished!");
         //删除本地转码文件
         VideoUtil.deleteTranscodeFiles(makeM3u8Result);
         //通知服务器
-        notifyNewVideo();
+        notifyNewVideo(makeM3u8Result);
         //结束
         System.exit(0);
     }
