@@ -49,6 +49,10 @@ public class Run {
         makeM3u8Result.setTsFileUrlList(tsFileUrlList);
     }
 
+    private static void notifyNewVideo() {
+
+    }
+
     public static void main(String[] args) {
         String videoFilePath = "C:\\Users\\thedoflin\\Videos\\Desktop\\Desktop 2020.07.05 - 20.33.54.01.mp4";
         File videoFile = new File(videoFilePath);
@@ -61,7 +65,9 @@ public class Run {
         //删除本地转码文件
         VideoUtil.deleteTranscodeFiles(makeM3u8Result);
         //通知服务器
+        notifyNewVideo();
         //结束
         System.exit(0);
     }
+
 }
