@@ -90,13 +90,14 @@ public class Run {
         map.put("videoFileFullName", makeM3u8Result.getVideoFileFullName());
         map.put("videoFileBaseName", makeM3u8Result.getVideoFileBaseName());
         map.put("videoFileExtension", makeM3u8Result.getVideoFileExtension());
-        String watchUrl = HttpUtil.post(notifyUrl, map);
+        String watchUrl = HttpUtil.post2(notifyUrl, map);
         System.out.println("watchUrl:");
         System.out.println(watchUrl);
     }
 
     public static void main(String[] args) {
-        String videoFilePath = "C:\\Users\\thedoflin\\Videos\\Desktop\\2020.07.06 点播开山之作.mp4";
+        String videoFilePath = "C:\\Users\\thedoflin\\Desktop\\中文名1az.mp4";
+//        String videoFilePath = "C:\\Users\\thedoflin\\Videos\\Desktop\\2020.07.06 点播开山之作.mp4";
         File videoFile = new File(videoFilePath);
         String videoId = RandomUtil.getString();
         //转码

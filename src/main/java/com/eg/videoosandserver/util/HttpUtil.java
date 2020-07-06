@@ -1,8 +1,10 @@
 package com.eg.videoosandserver.util;
 
 import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.ParseException;
+import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
@@ -14,7 +16,6 @@ import org.apache.http.util.EntityUtils;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -87,7 +88,7 @@ public class HttpUtil {
             CloseableHttpResponse response = client.execute(httpPost);
             HttpEntity entity = response.getEntity();
             if (entity != null) {
-                body = EntityUtils.toString(entity, Charset.defaultCharset());
+                body = EntityUtils.toString(entity, "utf-8");
             }
             EntityUtils.consume(entity);
             response.close();
@@ -97,5 +98,32 @@ public class HttpUtil {
         return body;
     }
 
-
+    public static String post2(String url, Map<String, String> map) {
+        HttpClient httpclient = HttpClients.createDefault();
+        HttpPost httppost = new HttpPost(url);
+        // Request parameters and other properties.
+        List<NameValuePair> params = new ArrayList<>();
+        for (Map.Entry<String, String> entry : map.entrySet()) {
+            params.add(new BasicNameValuePair(entry.getKey(), entry.getValue()));
+        }
+        try {
+            httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        //Execute and get the response.
+        HttpResponse response = null;
+        try {
+            response = httpclient.execute(httppost);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        HttpEntity entity = response.getEntity();
+        try {
+            return EntityUtils.toString(entity, "utf-8");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }
