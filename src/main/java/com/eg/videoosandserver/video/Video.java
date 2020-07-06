@@ -14,7 +14,7 @@ import java.util.Date;
 public class Video implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int index;
+    private int id;
     private Date createTime;
 
     private String videoId;
