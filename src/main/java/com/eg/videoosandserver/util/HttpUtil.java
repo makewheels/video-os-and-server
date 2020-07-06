@@ -3,12 +3,9 @@ package com.eg.videoosandserver.util;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
-import org.apache.http.ParseException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
@@ -58,47 +55,7 @@ public class HttpUtil {
         return null;
     }
 
-    /**
-     * 发送post请求
-     *
-     * @param url
-     * @return
-     */
-    public static String post(String url, Map<String, String> param) {
-        System.out.println("HttpClient POST: " + url);
-        CloseableHttpClient client = HttpClients.createDefault();
-        HttpPost httpPost = new HttpPost(url);
-        // 装填参数
-        List<NameValuePair> nvps = new ArrayList<>();
-        if (param != null) {
-            for (Map.Entry<String, String> entry : param.entrySet()) {
-                nvps.add(new BasicNameValuePair(entry.getKey(), entry.getValue()));
-            }
-        }
-        // 设置参数到请求对象中
-        try {
-            httpPost.setEntity(new UrlEncodedFormEntity(nvps));
-        } catch (UnsupportedEncodingException e1) {
-            e1.printStackTrace();
-        }
-        httpPost.setHeader("User-Agent", userAgent);
-        httpPost.setHeader("Content-type", contentType);
-        String body = null;
-        try {
-            CloseableHttpResponse response = client.execute(httpPost);
-            HttpEntity entity = response.getEntity();
-            if (entity != null) {
-                body = EntityUtils.toString(entity, "utf-8");
-            }
-            EntityUtils.consume(entity);
-            response.close();
-        } catch (ParseException | IOException e) {
-            e.printStackTrace();
-        }
-        return body;
-    }
-
-    public static String post2(String url, Map<String, String> map) {
+    public static String post(String url, Map<String, String> map) {
         HttpClient httpclient = HttpClients.createDefault();
         HttpPost httppost = new HttpPost(url);
         // Request parameters and other properties.

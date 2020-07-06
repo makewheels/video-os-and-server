@@ -90,7 +90,7 @@ public class Run {
         map.put("videoFileFullName", makeM3u8Result.getVideoFileFullName());
         map.put("videoFileBaseName", makeM3u8Result.getVideoFileBaseName());
         map.put("videoFileExtension", makeM3u8Result.getVideoFileExtension());
-        String watchUrl = HttpUtil.post2(notifyUrl, map);
+        String watchUrl = HttpUtil.post(notifyUrl, map);
         System.out.println("watchUrl:");
         System.out.println(watchUrl);
     }

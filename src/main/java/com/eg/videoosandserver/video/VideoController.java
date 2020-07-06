@@ -1,8 +1,6 @@
-package com.eg.videoosandserver;
+package com.eg.videoosandserver.video;
 
 import com.eg.videoosandserver.util.Contants;
-import com.eg.videoosandserver.video.Video;
-import com.eg.videoosandserver.video.VideoService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.repository.query.Param;
