@@ -12,11 +12,10 @@ public class VideoController {
 
     @RequestMapping("/notifyNewVideo")
     @ResponseBody
-    public String notifyNewVideo(
-            @Param("password") String password,
-            @Param("videoId") String videoId,
-            @Param("m3u8Url") String m3u8Url
-    ) {
+    public String notifyNewVideo(@Param("password") String password,
+                                 @Param("videoId") String videoId,
+                                 @Param("m3u8Url") String m3u8Url,
+                                 @Param("tsAmount") String tsAmount) {
         return RandomUtil.getString();
     }
 
