@@ -1,8 +1,9 @@
-package com.eg.videoosandserver;
+package com.eg.videoosandserver.video;
 
 import lombok.Data;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -10,7 +11,7 @@ import java.util.Date;
  */
 @Data
 @Entity
-public class Video {
+public class Video implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int index;
