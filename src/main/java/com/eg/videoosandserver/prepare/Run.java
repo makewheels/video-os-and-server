@@ -96,8 +96,8 @@ public class Run {
     }
 
     public static void main(String[] args) {
-        String videoFilePath = "C:\\Users\\thedoflin\\Desktop\\中文名1az.mp4";
 //        String videoFilePath = "C:\\Users\\thedoflin\\Videos\\Desktop\\2020.07.06 点播开山之作.mp4";
+        String videoFilePath = "C:\\Users\\thedoflin\\Desktop\\中文名1az.mp4";
         File videoFile = new File(videoFilePath);
         String videoId = RandomUtil.getString();
         //转码

@@ -23,4 +23,7 @@ public class Video implements Serializable {
     private String videoFileExtension;
     private String m3u8FileUrl;
     private int tsAmount;
+
+    private int viewCount;
+    private String watchUrl;
 }

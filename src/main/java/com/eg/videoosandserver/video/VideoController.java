@@ -1,25 +1,23 @@
 package com.eg.videoosandserver.video;
 
-import com.eg.videoosandserver.util.Contants;
+import com.eg.videoosandserver.viewlog.ViewLogService;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 @Controller
 @RequestMapping("/video")
 public class VideoController {
-    @Value("${server.servlet.context-path}")
-    private String contextPath;
-    @Value("${server.port}")
-    private int port;
     @Resource
     private VideoService videoService;
+    @Resource
+    private ViewLogService viewLogService;
 
     /**
      * 新增视频
@@ -47,10 +45,9 @@ public class VideoController {
             return null;
         }
         //新增记录
-        videoService.add(videoId, m3u8FileUrl, tsAmount,
+        String watchUrl = videoService.add(videoId, m3u8FileUrl, tsAmount,
                 videoFileFullName, videoFileBaseName, videoFileExtension);
-        return "http://" + Contants.IP + ":" + port + contextPath
-                + "/video/watch?videoId=" + videoId;
+        return watchUrl;
     }
 
     /**
@@ -60,8 +57,15 @@ public class VideoController {
      * @return
      */
     @RequestMapping("/watch")
-    public String watch(@Param("videoId") String videoId, Map<String, String> map) {
+    public String watch(@Param("videoId") String videoId, Map<String, String> map,
+                        HttpServletRequest request) {
+        //找到这个视频
         Video video = videoService.getVideoByVideoId(videoId);
+        //保存viewLog
+        String ip = request.getRemoteAddr();
+        String userAgent = request.getHeader("user-agent");
+        viewLogService.handleNewViewLog(video, ip, userAgent);
+        //返回前端页面
         map.put("title", video.getVideoFileBaseName());
         map.put("videoSourceUrl", video.getM3u8FileUrl());
         return "watch";
