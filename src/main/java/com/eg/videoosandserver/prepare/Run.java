@@ -96,19 +96,33 @@ public class Run {
     }
 
     public static void main(String[] args) {
-//        String videoFilePath = "C:\\Users\\thedoflin\\Videos\\Desktop\\2020.07.06 点播开山之作.mp4";
-        String videoFilePath = "C:\\Users\\thedoflin\\Desktop\\中文名1az.mp4";
-        File videoFile = new File(videoFilePath);
+        //是否转码为720p
+        boolean transcodeTo720p = true;
+        String videoFilePath = "C:\\Users\\thedoflin\\Downloads\\新建文件夹\\VID_20200730_205429_720p.mp4";
+        //原始视频
+        File originalVideoFile = new File(videoFilePath);
+        //最终要转m3u8上传的视频
+        File finalVideoFile = originalVideoFile;
+        //转码720p的视频
+        File transcode720pVideoFile = null;
+        if (transcodeTo720p) {
+            transcode720pVideoFile = VideoUtil.transcodeTo720p(originalVideoFile);
+            finalVideoFile = transcode720pVideoFile;
+        }
         String videoId = RandomUtil.getString();
         //转码
-        MakeM3u8Result makeM3u8Result = transcodingVideo(videoFile, videoId);
+        MakeM3u8Result makeM3u8Result = transcodingVideo(finalVideoFile, videoId);
         //准备名字
-        prepareFileName(makeM3u8Result, videoFile);
+        prepareFileName(makeM3u8Result, finalVideoFile);
         //上传对象存储
         uploadToObjectStorage(makeM3u8Result, videoId);
         System.out.println("upload finished!");
         //删除本地转码文件
         VideoUtil.deleteTranscodeFiles(makeM3u8Result);
+        //删除720p转码视频
+        if (transcodeTo720p) {
+            transcode720pVideoFile.delete();
+        }
         //通知服务器
         notifyNewVideo(makeM3u8Result);
         //结束

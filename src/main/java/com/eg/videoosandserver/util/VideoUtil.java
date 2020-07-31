@@ -1,5 +1,7 @@
 package com.eg.videoosandserver.util;
 
+import org.apache.commons.io.FilenameUtils;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -15,6 +17,38 @@ import java.util.List;
 public class VideoUtil {
 
     /**
+     * 转码为720p
+     *
+     * @param originalVideoFile
+     * @return
+     */
+    public static File transcodeTo720p(File originalVideoFile) {
+        String newName = FilenameUtils.getBaseName(originalVideoFile.getName()) + "_720p."
+                + FilenameUtils.getExtension(originalVideoFile.getName());
+        File resultFile = new File(originalVideoFile.getParent(), newName);
+        String cmd = "ffmpeg -i \"" + originalVideoFile.getAbsolutePath()
+                + "\" -c copy -c:v libx264 -vf scale=-2:720 \"" + resultFile.getAbsolutePath();
+        System.out.println(cmd);
+        try {
+            Process process = Runtime.getRuntime().exec(cmd);
+            InputStreamReader inputStreamReader = new InputStreamReader(process.getErrorStream());
+            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                System.out.println(line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return resultFile;
+    }
+
+    public static void main(String[] args) {
+        File file = new File("C:\\Users\\thedoflin\\Downloads\\新建文件夹\\VID_20200730_202347.mp4");
+        transcodeTo720p(file);
+    }
+
+    /**
      * 转码制作m3u8
      *
      * @param videoFile
@@ -25,7 +59,7 @@ public class VideoUtil {
     public static MakeM3u8Result makeM3u8(File videoFile, String videoId) throws IOException {
         //创建目录
         File folder = new File(videoFile.getParent(), videoId);
-        if (folder.exists() == false) {
+        if (!folder.exists()) {
             folder.mkdirs();
         }
         File m3u8File = new File(folder.getAbsolutePath() + File.separator + videoId + ".m3u8");
