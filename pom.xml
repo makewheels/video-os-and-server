@@ -81,6 +81,24 @@
             <version>1.2.72</version>
         </dependency>
 
+        <!--        <dependency>-->
+        <!--            <groupId>com.dingtalk.open</groupId>-->
+        <!--            <artifactId>taobao-sdk-java-auto</artifactId>-->
+        <!--            <version>1479188381469-20200315</version>-->
+        <!--        </dependency>-->
+
+        <dependency>
+            <groupId>com.aliyun</groupId>
+            <artifactId>alibaba-dingtalk-service-sdk</artifactId>
+            <version>1.0.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>cz.mallat.uasparser</groupId>
+            <artifactId>uasparser</artifactId>
+            <version>0.6.2</version>
+        </dependency>
+
     </dependencies>
 
     <build>

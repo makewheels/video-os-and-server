@@ -65,6 +65,8 @@ public class VideoController {
         String ip = request.getRemoteAddr();
         String userAgent = request.getHeader("user-agent");
         viewLogService.handleNewViewLog(video, ip, userAgent);
+        //钉钉通知
+        videoService.watchNotify(video, ip, userAgent);
         //返回前端页面
         map.put("title", video.getVideoFileBaseName());
         map.put("videoSourceUrl", video.getM3u8FileUrl());
