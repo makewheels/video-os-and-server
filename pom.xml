@@ -93,12 +93,6 @@
             <version>1.0.1</version>
         </dependency>
 
-        <dependency>
-            <groupId>cz.mallat.uasparser</groupId>
-            <artifactId>uasparser</artifactId>
-            <version>0.6.2</version>
-        </dependency>
-
     </dependencies>
 
     <build>
