@@ -81,7 +81,7 @@ public class Run {
      * @param makeM3u8Result
      */
     private static void notifyNewVideo(MakeM3u8Result makeM3u8Result) {
-        String notifyUrl = "http://" + Contants.IP + ":5002/video-os-and-server/video/notifyNewVideo";
+        String notifyUrl = "https://" + Contants.IP + ":5002/video-os-and-server/video/notifyNewVideo";
         Map<String, String> map = new HashMap<>();
         map.put("password", "N9Q0HsaSniSNiQ94");
         map.put("videoId", makeM3u8Result.getId());
@@ -98,7 +98,7 @@ public class Run {
     public static void main(String[] args) {
         //是否转码为720p
         boolean transcodeTo720p = false;
-        String videoFilePath = "C:\\Users\\binqiao\\Documents\\Bandicam\\bandicam 2021-02-02 11-36-32-018.mp4";
+        String videoFilePath = "C:\\Users\\thedoflin\\Videos\\Desktop\\Desktop 2021.02.03 - 20.26.15.05.mp4";
         //原始视频
         File originalVideoFile = new File(videoFilePath);
         //最终要转m3u8上传的视频
