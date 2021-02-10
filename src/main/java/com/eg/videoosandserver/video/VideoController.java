@@ -2,9 +2,9 @@ package com.eg.videoosandserver.video;
 
 import com.eg.videoosandserver.viewlog.ViewLogService;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
@@ -33,13 +33,13 @@ public class VideoController {
      */
     @RequestMapping("/notifyNewVideo")
     @ResponseBody
-    public String notifyNewVideo(@Param("password") String password,
-                                 @Param("videoId") String videoId,
-                                 @Param("m3u8FileUrl") String m3u8FileUrl,
-                                 @Param("tsAmount") int tsAmount,
-                                 @Param("videoFileFullName") String videoFileFullName,
-                                 @Param("videoFileBaseName") String videoFileBaseName,
-                                 @Param("videoFileExtension") String videoFileExtension) {
+    public String notifyNewVideo(@RequestParam("password") String password,
+                                 @RequestParam("videoId") String videoId,
+                                 @RequestParam("m3u8FileUrl") String m3u8FileUrl,
+                                 @RequestParam("tsAmount") int tsAmount,
+                                 @RequestParam("videoFileFullName") String videoFileFullName,
+                                 @RequestParam("videoFileBaseName") String videoFileBaseName,
+                                 @RequestParam("videoFileExtension") String videoFileExtension) {
         //校验密码
         if (StringUtils.isEmpty(password) || !password.equals("N9Q0HsaSniSNiQ94")) {
             return null;
@@ -56,7 +56,7 @@ public class VideoController {
      * @return
      */
     @RequestMapping("/watch")
-    public String watch(@Param("v") String videoId, Map<String, String> map,
+    public String watch(@RequestParam("v") String videoId, Map<String, String> map,
                         HttpServletRequest request) {
         //找到这个视频
         Video video = videoService.getVideoByVideoId(videoId);
