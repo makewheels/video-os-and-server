@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/video")
+@RequestMapping
 public class VideoController {
     @Resource
     private VideoService videoService;
@@ -45,9 +45,8 @@ public class VideoController {
             return null;
         }
         //新增记录
-        String watchUrl = videoService.add(videoId, m3u8FileUrl, tsAmount,
+        return videoService.add(videoId, m3u8FileUrl, tsAmount,
                 videoFileFullName, videoFileBaseName, videoFileExtension);
-        return watchUrl;
     }
 
     /**
@@ -57,7 +56,7 @@ public class VideoController {
      * @return
      */
     @RequestMapping("/watch")
-    public String watch(@Param("videoId") String videoId, Map<String, String> map,
+    public String watch(@Param("v") String videoId, Map<String, String> map,
                         HttpServletRequest request) {
         //找到这个视频
         Video video = videoService.getVideoByVideoId(videoId);

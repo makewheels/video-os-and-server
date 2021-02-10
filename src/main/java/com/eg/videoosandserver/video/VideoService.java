@@ -14,10 +14,10 @@ import java.util.Date;
 @Service
 @Transactional
 public class VideoService {
-    @Value("${server.servlet.context-path}")
-    private String contextPath;
-    @Value("${server.port}")
-    private int port;
+//    @Value("${server.servlet.context-path}")
+//    private String contextPath;
+//    @Value("${server.port}")
+//    private int port;
 
     @Resource
     private VideoDao videoDao;
@@ -45,8 +45,8 @@ public class VideoService {
         video.setVideoFileFullName(videoFileFullName);
         video.setVideoFileBaseName(videoFileBaseName);
         video.setVideoFileExtension(videoFileExtension);
-        String watchUrl = "https://" + Contants.IP + ":" + port + contextPath
-                + "/video/watch?videoId=" + videoId;
+//        String watchUrl = "https://" + Contants.IP + ":" + port + contextPath + "/watch?videoId=" + videoId;
+        String watchUrl = "https://" + Contants.IP + "/watch?v=" + videoId;
         video.setWatchUrl(watchUrl);
         videoDao.save(video);
         return watchUrl;
