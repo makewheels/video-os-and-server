@@ -92,14 +92,13 @@ public class Run {
         map.put("videoFileBaseName", makeM3u8Result.getVideoFileBaseName());
         map.put("videoFileExtension", makeM3u8Result.getVideoFileExtension());
         String watchUrl = HttpUtil.post(notifyUrl, map);
-        System.out.println("watchUrl:");
-        System.out.println(watchUrl);
+        System.out.println("watchUrl: " + watchUrl);
     }
 
     public static void main(String[] args) {
         //是否转码为720p
         boolean transcodeTo720p = false;
-        String videoFilePath = "C:\\Users\\thedoflin\\Videos\\Desktop\\Desktop 2021.03.09 - 22.24.44.01.mp4";
+        String videoFilePath = "C:\\Users\\thedoflin\\Videos\\Desktop\\Desktop 2021.03.13 - 13.46.02.02.mp4";
         //原始视频
         File originalVideoFile = new File(videoFilePath);
         //最终要转m3u8上传的视频
