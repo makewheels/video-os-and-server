@@ -5,3 +5,6 @@
 再通知服务器
 
 这样服务器可以灵活的
+
+tar zxvf /home/admin/app/package.tgz -C /home/admin/app/
+sh /home/admin/app/deploy.sh restart

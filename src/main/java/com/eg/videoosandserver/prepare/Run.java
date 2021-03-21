@@ -54,7 +54,8 @@ public class Run {
         int total = tsFileList.size();
         for (int i = 0; i < total; i++) {
             File file = tsFileList.get(i);
-            String tsFileUrl = BaiduCloudUtil.uploadObjectStorage(file, base + file.getName());
+            String tsFileUrl = BaiduCloudUtil.uploadObjectStorage(
+                    file, base + file.getName());
             int current = i + 1;
             int progress = (int) (current * 1.0 / total * 100);
             System.out.println(progress + "% " + tsFileUrl);
@@ -81,7 +82,8 @@ public class Run {
      * @param makeM3u8Result
      */
     private static void notifyNewVideo(MakeM3u8Result makeM3u8Result) {
-//        String notifyUrl = "https://" + Contants.IP + ":5002/video-os-and-server/video/notifyNewVideo";
+//        String notifyUrl
+//        = "https://" + Contants.IP + ":5002/video-os-and-server/video/notifyNewVideo";
         String notifyUrl = "https://" + Contants.IP + "/notifyNewVideo";
         Map<String, String> map = new HashMap<>();
         map.put("password", "N9Q0HsaSniSNiQ94");
@@ -98,7 +100,8 @@ public class Run {
     public static void main(String[] args) {
         //是否转码为720p
         boolean transcodeTo720p = false;
-        String videoFilePath = "C:\\Users\\thedoflin\\Videos\\Desktop\\Desktop 2021.03.18 - 09.00.45.03.mp4";
+        String videoFilePath
+                = "C:\\Users\\thedoflin\\Documents\\Tencent Files\\1444700314\\FileRecv\\Screenrecorder-2021-03-21-12-33-38-776.mp4";
         //原始视频
         File originalVideoFile = new File(videoFilePath);
         //最终要转m3u8上传的视频

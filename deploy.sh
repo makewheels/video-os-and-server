@@ -3,7 +3,6 @@
 # 修改APP_NAME为云效上的应用名
 APP_NAME=app
 
-
 PROG_NAME=$0
 ACTION=$1
 APP_START_TIMEOUT=20    # 等待应用启动的时间
