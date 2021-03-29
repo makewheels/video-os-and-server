@@ -101,7 +101,7 @@ public class Run {
         //是否转码为720p
         boolean transcodeTo720p = false;
         String videoFilePath
-                = "C:\\Users\\thedoflin\\Videos\\Desktop\\Desktop 2021.03.28 - 17.27.51.04.mp4";
+                = "D:\\huya-download\\2021-02-19_09-12-04_463277447.mp4";
         //原始视频
         File originalVideoFile = new File(videoFilePath);
         //最终要转m3u8上传的视频
