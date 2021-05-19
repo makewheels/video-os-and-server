@@ -12,12 +12,17 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 @Controller
-@RequestMapping
 public class VideoController {
     @Resource
     private VideoService videoService;
     @Resource
     private ViewLogService viewLogService;
+
+    @RequestMapping("test")
+    @ResponseBody
+    public String test() {
+        return "test";
+    }
 
     /**
      * 新增视频
