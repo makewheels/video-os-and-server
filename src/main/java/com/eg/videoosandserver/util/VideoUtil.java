@@ -43,11 +43,6 @@ public class VideoUtil {
         return resultFile;
     }
 
-    public static void main(String[] args) {
-        File file = new File("C:\\Users\\thedoflin\\Downloads\\新建文件夹\\VID_20200730_202347.mp4");
-        transcodeTo720p(file);
-    }
-
     /**
      * 转码制作m3u8
      *
@@ -62,7 +57,8 @@ public class VideoUtil {
         if (!folder.exists()) {
             folder.mkdirs();
         }
-        File m3u8File = new File(folder.getAbsolutePath() + File.separator + videoId + ".m3u8");
+        File m3u8File = new File(folder.getAbsolutePath() + File.separator +
+                videoId + ".m3u8");
         //转码视频
         String cmd = "ffmpeg -i \"" + videoFile.getAbsolutePath()
                 + "\" -codec copy -vbsf h264_mp4toannexb -map 0 -f segment -segment_list \""

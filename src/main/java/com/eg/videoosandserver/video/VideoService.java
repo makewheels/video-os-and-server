@@ -43,7 +43,8 @@ public class VideoService {
         video.setVideoFileFullName(videoFileFullName);
         video.setVideoFileBaseName(videoFileBaseName);
         video.setVideoFileExtension(videoFileExtension);
-//        String watchUrl = "https://" + Contants.IP + ":" + port + contextPath + "/watch?videoId=" + videoId;
+//        String watchUrl = "https://" + Contants.IP + ":" + port
+//        + contextPath + "/watch?videoId=" + videoId;
         String watchUrl = "https://" + Contants.IP + "/watch?v=" + videoId;
         video.setWatchUrl(watchUrl);
         videoDao.save(video);

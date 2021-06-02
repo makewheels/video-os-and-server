@@ -101,7 +101,7 @@ public class Run {
         //是否转码为720p
         boolean transcodeTo720p = false;
         String videoFilePath
-                = "D:\\huya-download\\2021-02-19_09-12-04_463277447.mp4";
+                = "C:\\Users\\thedoflin\\Documents\\Tencent Files\\1444700314\\FileRecv\\MobileFile\\VID_20210602_211520.mp4";
         //原始视频
         File originalVideoFile = new File(videoFilePath);
         //最终要转m3u8上传的视频
