@@ -18,10 +18,10 @@ public class VideoController {
     @Resource
     private ViewLogService viewLogService;
 
-    @RequestMapping("test")
+    @RequestMapping("healthCheck")
     @ResponseBody
     public String test() {
-        return "test";
+        return "ok";
     }
 
     /**
