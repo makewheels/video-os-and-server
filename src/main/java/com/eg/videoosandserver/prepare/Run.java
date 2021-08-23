@@ -6,7 +6,6 @@ import org.apache.commons.io.FilenameUtils;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * 总的运行流程
@@ -102,7 +101,7 @@ public class Run {
         //是否转码为720p
         boolean transcodeTo720p = true;
         String videoFilePath
-                = "C:\\Users\\miuser\\Documents\\Tencent Files\\1444700314\\FileRecv\\VID_20210822_184011.mp4";
+                = "C:\\Users\\thedoflin\\Videos\\KuGou\\KuGou 2021.06.03 - 21.54.41.06.mp4";
         //原始视频
         File originalVideoFile = new File(videoFilePath);
         //最终要转m3u8上传的视频
