@@ -101,7 +101,7 @@ public class Run {
         //是否转码为720p
         boolean transcodeTo720p = false;
         String videoFilePath
-                = "C:\\Users\\miuser\\Downloads\\2021.09.01 腾讯云.mp4";
+                = "D:\\d0602d3be1334fe6bc1f9d1d3b504a51.mp4";
         //原始视频
         File originalVideoFile = new File(videoFilePath);
         //最终要转m3u8上传的视频
