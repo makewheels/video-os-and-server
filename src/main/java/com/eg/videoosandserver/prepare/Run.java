@@ -101,7 +101,7 @@ public class Run {
         //是否转码为720p
         boolean transcodeTo720p = false;
         String videoFilePath
-                = "C:\\Users\\thedoflin\\Documents\\Tencent Files\\1444700314\\FileRecv\\MobileFile\\gengtingou.mp4";
+                = "C:\\Users\\thedoflin\\Downloads\\Learn Cantonese with Macanese.mp4";
         //原始视频
         File originalVideoFile = new File(videoFilePath);
         //最终要转m3u8上传的视频
