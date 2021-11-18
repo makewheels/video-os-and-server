@@ -82,11 +82,9 @@ public class Run {
      * @param makeM3u8Result
      */
     private static void notifyNewVideo(MakeM3u8Result makeM3u8Result) {
-//        String notifyUrl
-//        = "https://" + Contants.IP + ":5002/video-os-and-server/video/notifyNewVideo";
         String notifyUrl = "https://" + Contants.IP + "/notifyNewVideo";
         Map<String, String> map = new HashMap<>();
-        map.put("password", "N9Q0HsaSniSNiQ94");
+        map.put("password", Contants.PASSWORD);
         map.put("videoId", makeM3u8Result.getId());
         map.put("m3u8FileUrl", makeM3u8Result.getM3u8FileUrl());
         map.put("tsAmount", makeM3u8Result.getTsFileList().size() + "");
@@ -101,7 +99,7 @@ public class Run {
         //是否转码为720p
         boolean transcodeTo720p = false;
         String videoFilePath
-                = "C:\\Users\\thedoflin\\Downloads\\Learn Cantonese with Macanese.mp4";
+                = "C:\\Users\\thedoflin\\Downloads\\7 Smart Ways to Think in English-l2Z1_wNTmJc.mp4";
         //原始视频
         File originalVideoFile = new File(videoFilePath);
         //最终要转m3u8上传的视频

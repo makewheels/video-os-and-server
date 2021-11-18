@@ -1,6 +1,6 @@
 <configuration debug="false">
-    <logger name="org.apache" level="WARN" />
-    <logger name="org.apache.http.wire" level="WARN" />
+    <logger name="org.apache" level="INFO" />
+    <logger name="org.apache.http.wire" level="INFO" />
     <logger name="org.apache.http.headers" level="INFO" />
 
     <property name="CONSOLE_LOG_PATTERN"
