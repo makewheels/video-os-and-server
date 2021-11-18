@@ -95,6 +95,21 @@ public class Run {
         System.out.println("watchUrl: " + watchUrl);
     }
 
+    private static void createNewVideo(File finalVideoFile) {
+        String videoId = RandomUtil.getString();
+        //转码
+        MakeM3u8Result makeM3u8Result = transcodingVideo(finalVideoFile, videoId);
+        //准备名字
+        prepareFileName(makeM3u8Result, finalVideoFile);
+        //上传对象存储
+        uploadToObjectStorage(makeM3u8Result, videoId);
+        System.out.println("upload finished!");
+        //删除本地转码文件
+        VideoUtil.deleteTranscodeFiles(makeM3u8Result);
+        //通知服务器
+        notifyNewVideo(makeM3u8Result);
+    }
+
     public static void main(String[] args) {
         //是否转码为720p
         boolean transcodeTo720p = false;
@@ -110,22 +125,14 @@ public class Run {
             transcode720pVideoFile = VideoUtil.transcodeTo720p(originalVideoFile);
             finalVideoFile = transcode720pVideoFile;
         }
-        String videoId = RandomUtil.getString();
-        //转码
-        MakeM3u8Result makeM3u8Result = transcodingVideo(finalVideoFile, videoId);
-        //准备名字
-        prepareFileName(makeM3u8Result, finalVideoFile);
-        //上传对象存储
-        uploadToObjectStorage(makeM3u8Result, videoId);
-        System.out.println("upload finished!");
-        //删除本地转码文件
-        VideoUtil.deleteTranscodeFiles(makeM3u8Result);
+
+        createNewVideo(finalVideoFile);
+
         //删除720p转码视频
         if (transcodeTo720p) {
             transcode720pVideoFile.delete();
         }
-        //通知服务器
-        notifyNewVideo(makeM3u8Result);
+
         //结束
         System.exit(0);
     }
