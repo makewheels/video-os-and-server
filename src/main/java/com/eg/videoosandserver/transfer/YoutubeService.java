@@ -40,8 +40,10 @@ public class YoutubeService {
         String videoId = RandomUtil.getVideoId();
         new Thread(() -> {
             //获取视频文件信息
-            String filename = RuntimeUtil.execForStr("yt-dlp --get-filename -o '%(title)s.%(ext)s' "
-                    + "--restrict-filenames " + youtubeUrl);
+            String getFilenameCmd = "yt-dlp --get-filename -o '%(title)s.%(ext)s' "
+                    + "--restrict-filenames " + youtubeUrl;
+            System.out.println("getFilenameCmd = " + getFilenameCmd);
+            String filename = RuntimeUtil.execForStr(getFilenameCmd);
             filename = filename.replace("'", "");
             filename = filename.replace("+", "_");
             filename = filename.replace("%", "_");
@@ -57,6 +59,8 @@ public class YoutubeService {
             filename = filename.replace("$", "_");
             filename = filename.replace("*", "_");
             filename = filename.replace("`", "_");
+            filename = filename.replace("(", "_");
+            filename = filename.replace(")", "_");
             System.out.println("filename = " + filename);
 
             //下载视频
@@ -64,6 +68,7 @@ public class YoutubeService {
             File webmFile = new File(workDir, videoId + "/download/" + filename);
             System.out.println("webmFile = " + webmFile);
             String downloadCmd = "yt-dlp -S 'height:1080' -o '" + filename + "' " + youtubeUrl;
+            System.out.println("downloadCmd = " + downloadCmd);
             executeAndPrint(downloadCmd);
 
             //上传对象存储
