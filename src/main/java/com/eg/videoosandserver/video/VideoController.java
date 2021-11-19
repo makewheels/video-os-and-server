@@ -1,6 +1,6 @@
 package com.eg.videoosandserver.video;
 
-import com.eg.videoosandserver.util.Contants;
+import com.eg.videoosandserver.util.Constants;
 import com.eg.videoosandserver.viewlog.ViewLogService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpStatus;
@@ -46,12 +46,12 @@ public class VideoController {
                                  HttpServletResponse response
     ) {
         //校验密码
-        if (StringUtils.isEmpty(password) || !password.equals(Contants.PASSWORD)) {
+        if (StringUtils.isEmpty(password) || !password.equals(Constants.PASSWORD)) {
             response.setStatus(HttpStatus.SC_FORBIDDEN);
             return null;
         }
         //新增记录
-        return videoService.add(videoId, m3u8FileUrl, tsAmount,
+        return videoService.add(videoId, type, playFileUrl, m3u8FileUrl, tsAmount,
                 videoFileFullName, videoFileBaseName, videoFileExtension);
     }
 

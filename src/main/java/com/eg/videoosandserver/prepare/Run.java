@@ -82,9 +82,9 @@ public class Run {
      * @param makeM3u8Result
      */
     private static void notifyNewVideo(MakeM3u8Result makeM3u8Result) {
-        String notifyUrl = "https://" + Contants.IP + "/notifyNewVideo";
+        String notifyUrl = Constants.BASE_URL + "/notifyNewVideo";
         Map<String, String> map = new HashMap<>();
-        map.put("password", Contants.PASSWORD);
+        map.put("password", Constants.PASSWORD);
         map.put("videoId", makeM3u8Result.getId());
         map.put("m3u8FileUrl", makeM3u8Result.getM3u8FileUrl());
         map.put("tsAmount", makeM3u8Result.getTsFileList().size() + "");

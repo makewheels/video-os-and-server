@@ -1,6 +1,6 @@
 package com.eg.videoosandserver.video;
 
-import com.eg.videoosandserver.util.Contants;
+import com.eg.videoosandserver.util.Constants;
 import com.eg.videoosandserver.util.DingDingUtil;
 import com.eg.videoosandserver.util.UserAgentParser;
 import org.springframework.stereotype.Service;
@@ -22,19 +22,12 @@ public class VideoService {
 
     /**
      * 新增记录
-     *
-     * @param videoId
-     * @param m3u8FileUrl
-     * @param tsAmount
-     * @param videoFileFullName
-     * @param videoFileBaseName
-     * @param videoFileExtension
      */
-    public String add(String videoId, String m3u8FileUrl, int tsAmount,
+    public String add(String videoId, String type, String playFileUrl,
+                      String m3u8FileUrl, int tsAmount,
                       String videoFileFullName, String videoFileBaseName,
                       String videoFileExtension) {
         Video video = new Video();
-        //初始设置观看数为零
         video.setViewCount(0);
         video.setCreateTime(new Date());
         video.setVideoId(videoId);
@@ -43,9 +36,7 @@ public class VideoService {
         video.setVideoFileFullName(videoFileFullName);
         video.setVideoFileBaseName(videoFileBaseName);
         video.setVideoFileExtension(videoFileExtension);
-//        String watchUrl = "https://" + Contants.IP + ":" + port
-//        + contextPath + "/watch?videoId=" + videoId;
-        String watchUrl = "https://" + Contants.IP + "/watch?v=" + videoId;
+        String watchUrl = Constants.BASE_URL + "/watch?v=" + videoId;
         video.setWatchUrl(watchUrl);
         videoDao.save(video);
         return watchUrl;
