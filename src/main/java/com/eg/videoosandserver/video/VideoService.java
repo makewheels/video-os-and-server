@@ -31,8 +31,7 @@ public class VideoService {
     }
 
     private String newHlsVideo(
-            String videoId, String type, String playFileUrl,
-            String m3u8FileUrl, int tsAmount,
+            String videoId, String type, String m3u8FileUrl, int tsAmount,
             String videoFileFullName, String videoFileBaseName,
             String videoFileExtension) {
         Video video = new Video();
@@ -79,7 +78,7 @@ public class VideoService {
             String videoFileFullName, String videoFileBaseName,
             String videoFileExtension) {
         if (type.equals(Constants.TYPE_HLS)) {
-            return newHlsVideo(videoId, type, playFileUrl, m3u8FileUrl, tsAmount, videoFileFullName,
+            return newHlsVideo(videoId, type, m3u8FileUrl, tsAmount, videoFileFullName,
                     videoFileBaseName, videoFileExtension);
         } else if (type.equals(Constants.TYPE_WEBM)) {
             return newWebmVideo(videoId, type, playFileUrl, videoFileFullName, videoFileBaseName,

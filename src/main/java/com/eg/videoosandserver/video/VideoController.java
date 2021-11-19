@@ -40,7 +40,6 @@ public class VideoController {
                                  @RequestParam("videoId") String videoId,
                                  @RequestParam("type") String type,
                                  @RequestParam("playFileUrl") String playFileUrl,
-
                                  @RequestParam("m3u8FileUrl") String m3u8FileUrl,
                                  @RequestParam("tsAmount") int tsAmount,
                                  @RequestParam("videoFileFullName") String videoFileFullName,

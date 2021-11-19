@@ -85,6 +85,7 @@ public class YoutubeService {
             String playFileUrl = BaiduCloudUtil.uploadObjectStorage(webmFile, key);
 
             System.out.println("上传对象存储完成");
+            System.out.println("playFileUrl = " + playFileUrl);
             long end = System.currentTimeMillis();
             long time = end - start;
             long fileLength = webmFile.length();
