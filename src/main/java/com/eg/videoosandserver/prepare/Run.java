@@ -86,6 +86,8 @@ public class Run {
         Map<String, String> map = new HashMap<>();
         map.put("password", Constants.PASSWORD);
         map.put("videoId", makeM3u8Result.getId());
+        map.put("type", Constants.TYPE_HLS);
+        map.put("playFileUrl", null);
         map.put("m3u8FileUrl", makeM3u8Result.getM3u8FileUrl());
         map.put("tsAmount", makeM3u8Result.getTsFileList().size() + "");
         map.put("videoFileFullName", makeM3u8Result.getVideoFileFullName());

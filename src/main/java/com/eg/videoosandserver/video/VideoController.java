@@ -34,14 +34,15 @@ public class VideoController {
     @ResponseBody
     public String notifyNewVideo(@RequestParam("password") String password,
                                  @RequestParam("videoId") String videoId,
+                                 @RequestParam("type") String type,
+                                 @RequestParam("playFileUrl") String playFileUrl,
+
                                  @RequestParam("m3u8FileUrl") String m3u8FileUrl,
                                  @RequestParam("tsAmount") int tsAmount,
                                  @RequestParam("videoFileFullName") String videoFileFullName,
                                  @RequestParam("videoFileBaseName") String videoFileBaseName,
                                  @RequestParam("videoFileExtension") String videoFileExtension,
 
-                                 @RequestParam("playFileUrl") String playFileUrl,
-                                 @RequestParam("type") String type,
 
                                  HttpServletResponse response
     ) {
@@ -57,9 +58,6 @@ public class VideoController {
 
     /**
      * 看视频
-     *
-     * @param videoId
-     * @return
      */
     @RequestMapping("/watch")
     public String watch(@RequestParam("v") String videoId, Map<String, String> map,
