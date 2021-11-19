@@ -20,13 +20,11 @@ public class VideoService {
     @Resource
     private VideoDao videoDao;
 
-    /**
-     * 新增记录
-     */
-    public String add(String videoId, String type, String playFileUrl,
-                      String m3u8FileUrl, int tsAmount,
-                      String videoFileFullName, String videoFileBaseName,
-                      String videoFileExtension) {
+    private String newHlsVideo(
+            String videoId, String type, String playFileUrl,
+            String m3u8FileUrl, int tsAmount,
+            String videoFileFullName, String videoFileBaseName,
+            String videoFileExtension) {
         Video video = new Video();
         video.setViewCount(0);
         video.setCreateTime(new Date());
@@ -40,6 +38,46 @@ public class VideoService {
         video.setWatchUrl(watchUrl);
         videoDao.save(video);
         return watchUrl;
+    }
+
+    private String newWebmVideo(
+            String videoId, String type, String playFileUrl,
+            String videoFileFullName, String videoFileBaseName,
+            String videoFileExtension) {
+        Video video = new Video();
+        video.setViewCount(0);
+        video.setCreateTime(new Date());
+        video.setVideoId(videoId);
+        video.setPlayFileUrl(playFileUrl);
+        video.setVideoFileFullName(videoFileFullName);
+        video.setVideoFileBaseName(videoFileBaseName);
+        video.setVideoFileExtension(videoFileExtension);
+        String watchUrl = Constants.BASE_URL + "/watch?v=" + videoId;
+        video.setWatchUrl(watchUrl);
+        videoDao.save(video);
+        return watchUrl;
+    }
+
+    public static void main(String[] args) {
+
+    }
+
+    /**
+     * 新增记录
+     */
+    public String add(
+            String videoId, String type, String playFileUrl,
+            String m3u8FileUrl, int tsAmount,
+            String videoFileFullName, String videoFileBaseName,
+            String videoFileExtension) {
+        if (type.equals(Constants.TYPE_HLS)) {
+            return newHlsVideo(videoId, type, playFileUrl, m3u8FileUrl, tsAmount, videoFileFullName,
+                    videoFileBaseName, videoFileExtension);
+        } else if (type.equals(Constants.TYPE_WEBM)) {
+            return newWebmVideo(videoId, type, playFileUrl, videoFileFullName, videoFileBaseName,
+                    videoFileExtension);
+        }
+        return null;
     }
 
     /**
@@ -66,8 +104,7 @@ public class VideoService {
                             "# viewCount: " + video.getViewCount() + "\n\n" +
                             "# ip: " + ip + "\n\n" +
                             "# deviceInfo: " + UserAgentParser.getDeviceInfo(userAgentString) + "\n\n" +
-                            "# NetType: " + UserAgentParser.getNetType(userAgentString) + "\n\n" +
-                            "# userAgentString: " + userAgentString;
+                            "# NetType: " + UserAgentParser.getNetType(userAgentString);
             DingDingUtil.sendMarkdown(markdownText);
         }).start();
     }

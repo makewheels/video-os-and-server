@@ -50,7 +50,7 @@ CREATE TABLE `view_log`
     `id`                   int NOT NULL AUTO_INCREMENT,
     `ip`                   varchar(255)  DEFAULT NULL,
     `number_of_this_video` int NOT NULL,
-    `user_agent`           varchar(1000) DEFAULT NULL,
+    `user_agent`           varchar(1023) DEFAULT NULL,
     `video_id`             varchar(255)  DEFAULT NULL,
     `view_time`            datetime      DEFAULT NULL,
     PRIMARY KEY (`id`)
