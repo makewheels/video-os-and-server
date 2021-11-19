@@ -61,6 +61,7 @@ public class YoutubeService {
             filename = filename.replace("`", "_");
             filename = filename.replace("(", "_");
             filename = filename.replace(")", "_");
+            filename = filename.replace(" ", "_");
             filename = filename.replace("\n", "");
             filename = filename.replace("\r", "");
             System.out.println("filename = " + filename);
@@ -69,7 +70,7 @@ public class YoutubeService {
             File workDir = videoService.getWorkDir();
             File webmFile = new File(workDir, videoId + "/download/" + filename);
             System.out.println("webmFile = " + webmFile);
-            String downloadCmd = "yt-dlp -S 'height:1080' -o '" + webmFile.getAbsolutePath() + "' " + youtubeUrl;
+            String downloadCmd = "yt-dlp -S height:1080 -o " + webmFile.getAbsolutePath() + " " + youtubeUrl;
             System.out.println("downloadCmd = " + downloadCmd);
             executeAndPrint(downloadCmd);
 
