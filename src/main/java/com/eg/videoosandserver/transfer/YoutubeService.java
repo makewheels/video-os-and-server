@@ -42,6 +42,7 @@ public class YoutubeService {
             //获取视频文件信息
             String filename = RuntimeUtil.execForStr("yt-dlp --get-filename -o '%(title)s.%(ext)s' "
                     + "--restrict-filenames " + youtubeUrl);
+            filename = filename.replace("'", "");
             System.out.println("filename = " + filename);
 
             //下载视频
