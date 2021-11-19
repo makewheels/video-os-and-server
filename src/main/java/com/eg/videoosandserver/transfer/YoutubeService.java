@@ -91,7 +91,7 @@ public class YoutubeService {
             long fileLength = webmFile.length();
             long speedPerSecond = fileLength / time * 1000;
             String readable = FileUtil.readableFileSize(speedPerSecond);
-            System.out.println(readable);
+            System.out.println("上传对象存储速度:  " + readable + " / s");
 
 
             //通知

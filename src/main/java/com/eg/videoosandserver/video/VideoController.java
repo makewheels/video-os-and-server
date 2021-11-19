@@ -82,6 +82,7 @@ public class VideoController {
             return "watch";
         } else if (type.equals(Constants.TYPE_WEBM)) {
             map.put("playFileUrl", video.getPlayFileUrl());
+            System.out.println("video.getPlayFileUrl() = " + video.getPlayFileUrl());
             return "watch-webm";
         } else {
             map.put("m3u8_file_url", video.getM3u8_file_url());
