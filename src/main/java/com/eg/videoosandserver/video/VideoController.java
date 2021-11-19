@@ -1,5 +1,6 @@
 package com.eg.videoosandserver.video;
 
+import com.eg.videoosandserver.util.Contants;
 import com.eg.videoosandserver.viewlog.ViewLogService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
@@ -46,7 +47,7 @@ public class VideoController {
                                  @RequestParam("videoFileBaseName") String videoFileBaseName,
                                  @RequestParam("videoFileExtension") String videoFileExtension) {
         //校验密码
-        if (StringUtils.isEmpty(password) || !password.equals("N9Q0HsaSniSNiQ94")) {
+        if (StringUtils.isEmpty(password) || !password.equals(Contants.PASSWORD)) {
             return null;
         }
         //新增记录

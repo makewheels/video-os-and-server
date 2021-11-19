@@ -10,8 +10,8 @@ import java.io.File;
  * 百度云工具类
  */
 public class BaiduCloudUtil {
-    private static final String ACCESS_KEY_ID = "053b56b1b2df42979f8d062bcc862d84";
-    private static final String SECRET_ACCESS_KEY = "d671a33660ec42dd977ac1d5cfd56cfa";
+    private static final String ACCESS_KEY_ID = "ace034ef06b040c0b578a668f292f493";
+    private static final String SECRET_ACCESS_KEY = "0922593ba25244d19bc7a340188fe57c";
     private static final String ENDPOINT = "bj.bcebos.com";
     private static final String BUCKET_NAME = "video-beijing";
     private static final String BASE_URL = "https://video-beijing.cdn.bcebos.com";
