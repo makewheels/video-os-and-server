@@ -94,7 +94,7 @@ public class YoutubeService {
         map.put("type", Constants.TYPE_WEBM);
         map.put("playFileUrl", null);
         map.put("m3u8FileUrl", null);
-        map.put("tsAmount", null);
+        map.put("tsAmount", "0");
         map.put("videoFileFullName", file.getName());
         map.put("videoFileBaseName", FilenameUtils.getBaseName(file.getName()));
         map.put("videoFileExtension", FilenameUtils.getExtension(file.getName()));

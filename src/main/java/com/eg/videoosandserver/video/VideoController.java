@@ -26,7 +26,7 @@ public class VideoController {
     @RequestMapping("healthCheck")
     @ResponseBody
     public String healthCheck() {
-        String str = "ok " + System.currentTimeMillis() + " " + UUID.randomUUID();
+        String str = "healthCheck response: ok " + System.currentTimeMillis() + " " + UUID.randomUUID();
         System.out.println(str);
         return str;
     }
