@@ -66,8 +66,7 @@ public class VideoUtil {
                 + File.separator + videoId + "-%d.ts\"";
         System.out.println(cmd);
         Process process = Runtime.getRuntime().exec(cmd);
-        InputStreamReader inputStreamReader = new InputStreamReader(process.getErrorStream());
-        BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
         String line;
         while ((line = bufferedReader.readLine()) != null) {
             System.out.println(line);
