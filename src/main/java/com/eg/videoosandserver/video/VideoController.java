@@ -3,6 +3,7 @@ package com.eg.videoosandserver.video;
 import com.eg.videoosandserver.util.Constants;
 import com.eg.videoosandserver.viewlog.ViewLogService;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.http.HttpHeaders;
 import org.apache.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,8 +44,7 @@ public class VideoController {
                                  @RequestParam("videoFileBaseName") String videoFileBaseName,
                                  @RequestParam("videoFileExtension") String videoFileExtension,
 
-                                 HttpServletResponse response
-    ) {
+                                 HttpServletResponse response) {
         //校验密码
         if (StringUtils.isEmpty(password) || !password.equals(Constants.PASSWORD)) {
             response.setStatus(HttpStatus.SC_FORBIDDEN);
@@ -65,7 +65,7 @@ public class VideoController {
         Video video = videoService.getVideoByVideoId(videoId);
         //保存viewLog
         String ip = request.getRemoteAddr();
-        String userAgent = request.getHeader("user-agent");
+        String userAgent = request.getHeader(HttpHeaders.USER_AGENT);
         viewLogService.handleNewViewLog(video, ip, userAgent);
         //钉钉通知
         videoService.watchNotify(video, ip, userAgent);

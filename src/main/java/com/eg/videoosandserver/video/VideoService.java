@@ -3,6 +3,7 @@ package com.eg.videoosandserver.video;
 import com.eg.videoosandserver.util.Constants;
 import com.eg.videoosandserver.util.DingDingUtil;
 import com.eg.videoosandserver.util.UserAgentParser;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -12,10 +13,8 @@ import java.util.Date;
 @Service
 @Transactional
 public class VideoService {
-//    @Value("${server.servlet.context-path}")
-//    private String contextPath;
-//    @Value("${server.port}")
-//    private int port;
+    @Value("${workDir}")
+    private String contextPath;
 
     @Resource
     private VideoDao videoDao;
@@ -105,8 +104,7 @@ public class VideoService {
                     "# video: " + video.getVideoFileBaseName() + "\n\n" +
                             "# viewCount: " + video.getViewCount() + "\n\n" +
                             "# ip: " + ip + "\n\n" +
-                            "# deviceInfo: " + UserAgentParser.getDeviceInfo(userAgentString) + "\n\n" +
-                            "# NetType: " + UserAgentParser.getNetType(userAgentString);
+                            "# deviceInfo: " + UserAgentParser.getDeviceInfo(userAgentString);
             DingDingUtil.sendMarkdown(markdownText);
         }).start();
     }

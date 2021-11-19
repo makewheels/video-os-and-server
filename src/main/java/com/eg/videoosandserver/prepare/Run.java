@@ -34,19 +34,10 @@ public class Run {
      * @param videoId
      */
     private static void uploadToObjectStorage(MakeM3u8Result makeM3u8Result, String videoId) {
-        //准备对象存储前缀
-        Calendar calendar = Calendar.getInstance();
-        int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH) + 1;
-        String monthString = month + "";
-        if (month <= 9) {
-            monthString = "0" + month;
-        }
-        String base = "/videos/" + year + "-" + monthString + "/" + videoId + "/";
+        String base = BaiduCloudUtil.getObjectStoragePrefix(videoId);
         //上传m3u8文件
         File m3u8File = makeM3u8Result.getM3u8File();
-        String m3u8FileUrl = BaiduCloudUtil.uploadObjectStorage(
-                m3u8File, base + m3u8File.getName());
+        String m3u8FileUrl = BaiduCloudUtil.uploadObjectStorage(m3u8File, base + m3u8File.getName());
         makeM3u8Result.setM3u8FileUrl(m3u8FileUrl);
         //上传ts碎片
         List<File> tsFileList = makeM3u8Result.getTsFileList();
@@ -54,8 +45,7 @@ public class Run {
         int total = tsFileList.size();
         for (int i = 0; i < total; i++) {
             File file = tsFileList.get(i);
-            String tsFileUrl = BaiduCloudUtil.uploadObjectStorage(
-                    file, base + file.getName());
+            String tsFileUrl = BaiduCloudUtil.uploadObjectStorage(file, base + file.getName());
             int current = i + 1;
             int progress = (int) (current * 1.0 / total * 100);
             System.out.println(progress + "% " + tsFileUrl);
@@ -98,7 +88,7 @@ public class Run {
     }
 
     private static void createNewVideo(File finalVideoFile) {
-        String videoId = RandomUtil.getString();
+        String videoId = RandomUtil.getVideoId();
         //转码
         MakeM3u8Result makeM3u8Result = transcodingVideo(finalVideoFile, videoId);
         //准备名字
@@ -114,7 +104,7 @@ public class Run {
 
     public static void main(String[] args) {
         //是否转码为720p
-        boolean transcodeTo720p = false;
+        boolean transcodeTo720p = true;
         String videoFilePath
                 = "D:\\Desktop 2021.11.19 - 12.37.35.01.mp4";
         //原始视频

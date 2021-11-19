@@ -5,6 +5,7 @@ import com.baidubce.services.bos.BosClient;
 import com.baidubce.services.bos.BosClientConfiguration;
 
 import java.io.File;
+import java.util.Calendar;
 
 /**
  * 百度云工具类
@@ -35,6 +36,18 @@ public class BaiduCloudUtil {
     public static String uploadObjectStorage(File file, String objectKey) {
         client.putObject(BUCKET_NAME, objectKey, file);
         return BASE_URL + objectKey;
+    }
+
+    public static String getObjectStoragePrefix(String videoId) {
+        //准备对象存储前缀
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH) + 1;
+        String monthString = month + "";
+        if (month <= 9) {
+            monthString = "0" + month;
+        }
+        return "/videos/" + year + "-" + monthString + "/" + videoId + "/";
     }
 
 }

@@ -4,7 +4,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 
 public class RandomUtil {
 
-    public static String getString() {
+    public static String getVideoId() {
         return RandomStringUtils.randomAlphanumeric(11);
     }
 
