@@ -69,7 +69,7 @@ public class YoutubeService {
             File workDir = videoService.getWorkDir();
             File webmFile = new File(workDir, videoId + "/download/" + filename);
             System.out.println("webmFile = " + webmFile);
-            String downloadCmd = "yt-dlp -S 'height:1080' -o '" + filename + "' " + youtubeUrl;
+            String downloadCmd = "yt-dlp -S 'height:1080' -o '" + webmFile.getAbsolutePath() + "' " + youtubeUrl;
             System.out.println("downloadCmd = " + downloadCmd);
             executeAndPrint(downloadCmd);
 
