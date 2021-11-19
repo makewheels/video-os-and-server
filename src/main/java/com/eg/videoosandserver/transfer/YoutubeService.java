@@ -1,5 +1,6 @@
 package com.eg.videoosandserver.transfer;
 
+import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.RuntimeUtil;
 import com.eg.videoosandserver.util.BaiduCloudUtil;
 import com.eg.videoosandserver.util.Constants;
@@ -75,10 +76,24 @@ public class YoutubeService {
             executeAndPrint(downloadCmd);
 
             //上传对象存储
+            System.out.println("开始上传对象存储");
+            long start = System.currentTimeMillis();
+
             String base = BaiduCloudUtil.getObjectStoragePrefix(videoId);
-            BaiduCloudUtil.uploadObjectStorage(webmFile, base + videoId
-                    + FilenameUtils.getExtension(webmFile.getName()));
+            String key = base + videoId + FilenameUtils.getExtension(webmFile.getName());
+            System.out.println("key = " + key);
+            BaiduCloudUtil.uploadObjectStorage(webmFile, key);
+
+            System.out.println("上传对象存储完成");
+            long end = System.currentTimeMillis();
+            long time = end - start;
+            long fileLength = webmFile.length();
+            long speedPerSecond = fileLength / time * 1000;
+            String readable = FileUtil.readableFileSize(speedPerSecond);
+            System.out.println(readable);
+
             //通知
+            System.out.println("通知国内服务器");
             notifyWebmVideo(videoId, webmFile);
         }).start();
 

@@ -43,11 +43,16 @@ public class BaiduCloudUtil {
         Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH) + 1;
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
         String monthString = month + "";
         if (month <= 9) {
             monthString = "0" + month;
         }
-        return "/videos/" + year + "-" + monthString + "/" + videoId + "/";
+        String dayString = day + "";
+        if (day <= 9) {
+            dayString = "0" + day;
+        }
+        return "/videos/" + year + "-" + monthString + "-" + dayString + "/" + videoId + "/";
     }
 
 }
