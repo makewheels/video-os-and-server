@@ -14,6 +14,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
+import java.util.UUID;
 
 @Controller
 public class VideoController {
@@ -25,7 +26,7 @@ public class VideoController {
     @RequestMapping("healthCheck")
     @ResponseBody
     public String healthCheck() {
-        return "ok";
+        return "ok " + System.currentTimeMillis() + " " + UUID.randomUUID();
     }
 
     /**

@@ -5,7 +5,7 @@ APP_NAME=${PIPELINE_NAME}
 
 PROG_NAME=$0
 ACTION=$1
-APP_START_TIMEOUT=20                                            # 等待应用启动的时间
+APP_START_TIMEOUT=60                                            # 等待应用启动的时间
 APP_PORT=443                                                    # 应用端口
 HEALTH_CHECK_URL=https://www.itube.work:${APP_PORT}/healthCheck # 应用健康检查URL
 APP_HOME=/home/admin/${APP_NAME}                                # 从package.tgz中解压出来的jar包放到这个目录下
