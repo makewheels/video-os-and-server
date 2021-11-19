@@ -22,8 +22,8 @@ public class YoutubeService {
     public void executeAndPrint(String cmd) {
         try {
             Process process = Runtime.getRuntime().exec(cmd);
-            InputStream errorStream = process.getErrorStream();
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(errorStream));
+            InputStream inputStream = process.getInputStream();
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
             String line;
             while ((line = bufferedReader.readLine()) != null) {
                 System.out.println(line);
