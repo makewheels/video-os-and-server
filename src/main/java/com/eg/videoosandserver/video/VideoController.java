@@ -72,10 +72,18 @@ public class VideoController {
         viewLogService.handleNewViewLog(video, ip, userAgent);
         //钉钉通知
         videoService.watchNotify(video, ip, userAgent);
+
         //返回前端页面
         map.put("title", video.getVideoFileBaseName());
-        map.put("videoSourceUrl", video.getM3u8_file_url());
-        return "watch";
+        //判断类型
+        String type = video.getType();
+        if (type.equals(Constants.TYPE_HLS)) {
+            map.put("m3u8_file_url", video.getM3u8_file_url());
+            return "watch";
+        } else {
+            map.put("playFileUrl", video.getPlayFileUrl());
+            return "watch-webm";
+        }
     }
 
 }
