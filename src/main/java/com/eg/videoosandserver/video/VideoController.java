@@ -23,7 +23,7 @@ public class VideoController {
 
     @RequestMapping("healthCheck")
     @ResponseBody
-    public String test() {
+    public String healthCheck() {
         return "ok";
     }
 
@@ -74,7 +74,7 @@ public class VideoController {
         videoService.watchNotify(video, ip, userAgent);
         //返回前端页面
         map.put("title", video.getVideoFileBaseName());
-        map.put("videoSourceUrl", video.getM3u8FileUrl());
+        map.put("videoSourceUrl", video.getM3u8_file_url());
         return "watch";
     }
 

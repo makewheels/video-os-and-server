@@ -29,7 +29,7 @@ public class VideoService {
         video.setViewCount(0);
         video.setCreateTime(new Date());
         video.setVideoId(videoId);
-        video.setM3u8FileUrl(m3u8FileUrl);
+        video.setM3u8_file_url(m3u8FileUrl);
         video.setTsAmount(tsAmount);
         video.setVideoFileFullName(videoFileFullName);
         video.setVideoFileBaseName(videoFileBaseName);

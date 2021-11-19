@@ -18,7 +18,7 @@ public class Video implements Serializable {
     private Date createTime;
 
     private String type;
-    private String m3u8FileUrl;
+    private String m3u8_file_url;
     private String playFileUrl;
 
     private String videoId;
