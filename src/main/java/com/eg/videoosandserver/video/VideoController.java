@@ -27,15 +27,6 @@ public class VideoController {
 
     /**
      * 新增视频
-     *
-     * @param password
-     * @param videoId
-     * @param m3u8FileUrl
-     * @param tsAmount
-     * @param videoFileFullName
-     * @param videoFileBaseName
-     * @param videoFileExtension
-     * @return
      */
     @RequestMapping("/notifyNewVideo")
     @ResponseBody

@@ -10,7 +10,7 @@ APP_PORT=5021                                                      # 应用端�
 HEALTH_CHECK_URL=http://wonderwhy.club:${APP_PORT}/healthCheck     # 应用健康检查URL
 APP_HOME=/home/admin/${APP_NAME}                                   # 从package.tgz中解压出来的jar包放到这个目录下
 JAR_NAME=${APP_HOME}/target/${APP_NAME}-0.0.1-SNAPSHOT.jar         # jar包的名字
-JAVA_OUT=${APP_HOME}/logs/start.log                                #应用的启动日志
+JAVA_OUT=${APP_HOME}/logs/start.log                                # 应用的启动日志
 
 # 创建出相关目录
 mkdir -p ${APP_HOME}
