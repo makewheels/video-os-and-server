@@ -80,9 +80,12 @@ public class VideoController {
         if (type.equals(Constants.TYPE_HLS)) {
             map.put("m3u8_file_url", video.getM3u8_file_url());
             return "watch";
-        } else {
+        } else if (type.equals(Constants.TYPE_WEBM)) {
             map.put("playFileUrl", video.getPlayFileUrl());
             return "watch-webm";
+        } else {
+            map.put("m3u8_file_url", video.getM3u8_file_url());
+            return "watch";
         }
     }
 

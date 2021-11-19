@@ -80,21 +80,27 @@ public class YoutubeService {
             long start = System.currentTimeMillis();
 
             String base = BaiduCloudUtil.getObjectStoragePrefix(videoId);
-            String key = base + videoId + FilenameUtils.getExtension(webmFile.getName());
+            String key = base + videoId + "." + FilenameUtils.getExtension(webmFile.getName());
             System.out.println("key = " + key);
             BaiduCloudUtil.uploadObjectStorage(webmFile, key);
 
             System.out.println("上传对象存储完成");
             long end = System.currentTimeMillis();
             long time = end - start;
+            System.out.println("time = " + time);
             long fileLength = webmFile.length();
             long speedPerSecond = fileLength / time * 1000;
             String readable = FileUtil.readableFileSize(speedPerSecond);
             System.out.println(readable);
 
+
             //通知
             System.out.println("通知国内服务器");
             notifyWebmVideo(videoId, webmFile);
+
+            //删除本地下载的文件
+            System.out.println("webmFile.delete() = " + webmFile.delete());
+            System.out.println(new File(workDir, videoId).delete());
         }).start();
 
         //提前先返回播放地址
