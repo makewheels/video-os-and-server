@@ -61,6 +61,8 @@ public class YoutubeService {
             filename = filename.replace("`", "_");
             filename = filename.replace("(", "_");
             filename = filename.replace(")", "_");
+            filename = filename.replace("\n", "");
+            filename = filename.replace("\r", "");
             System.out.println("filename = " + filename);
 
             //下载视频
