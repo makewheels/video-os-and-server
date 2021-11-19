@@ -99,9 +99,9 @@ public class Run {
 
     public static void main(String[] args) {
         //是否转码为720p
-        boolean transcodeTo720p = false;
+        boolean transcodeTo720p = true;
         String videoFilePath
-                = "D:\\d0602d3be1334fe6bc1f9d1d3b504a51.mp4";
+                = "D:\\BaiduNetdiskDownload\\Cantonese-low-r.mp4";
         //原始视频
         File originalVideoFile = new File(videoFilePath);
         //最终要转m3u8上传的视频
