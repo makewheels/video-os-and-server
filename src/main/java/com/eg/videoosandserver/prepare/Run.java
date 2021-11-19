@@ -116,7 +116,7 @@ public class Run {
         //是否转码为720p
         boolean transcodeTo720p = false;
         String videoFilePath
-                = "C:\\Users\\thedoflin\\Videos\\Desktop\\Desktop 2021.11.19 - 12.37.35.01.mp4";
+                = "D:\\Desktop 2021.11.19 - 12.37.35.01.mp4";
         //原始视频
         File originalVideoFile = new File(videoFilePath);
         //最终要转m3u8上传的视频
@@ -131,9 +131,7 @@ public class Run {
         createNewVideo(finalVideoFile);
 
         //删除720p转码视频
-        if (transcodeTo720p) {
-            transcode720pVideoFile.delete();
-        }
+        if (transcodeTo720p) transcode720pVideoFile.delete();
 
         //结束
         System.exit(0);

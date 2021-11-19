@@ -43,7 +43,6 @@ public class VideoController {
                                  @RequestParam("videoFileBaseName") String videoFileBaseName,
                                  @RequestParam("videoFileExtension") String videoFileExtension,
 
-
                                  HttpServletResponse response
     ) {
         //校验密码
