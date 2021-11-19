@@ -112,7 +112,7 @@ public class YoutubeService {
         map.put("password", Constants.PASSWORD);
         map.put("videoId", videoId);
         map.put("type", Constants.TYPE_WEBM);
-        map.put("playFileUrl", null);
+        map.put("playFileUrl", playFileUrl);
         map.put("m3u8FileUrl", null);
         map.put("tsAmount", "0");
         map.put("videoFileFullName", file.getName());
