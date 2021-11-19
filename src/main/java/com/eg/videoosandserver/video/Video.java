@@ -17,11 +17,14 @@ public class Video implements Serializable {
     private int id;
     private Date createTime;
 
+    private String type;
+    private String m3u8FileUrl;
+    private String playFileUrl;
+
     private String videoId;
     private String videoFileFullName;
     private String videoFileBaseName;
     private String videoFileExtension;
-    private String m3u8FileUrl;
     private int tsAmount;
 
     private int viewCount;
