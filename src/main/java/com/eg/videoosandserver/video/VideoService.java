@@ -8,16 +8,23 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
+import java.io.File;
 import java.util.Date;
 
 @Service
 @Transactional
 public class VideoService {
     @Value("${workDir}")
-    private String contextPath;
+    private String workDir;
 
     @Resource
     private VideoDao videoDao;
+
+    public File getWorkDir() {
+        File file = new File(workDir);
+        if (!file.exists()) file.mkdirs();
+        return file;
+    }
 
     private String newHlsVideo(
             String videoId, String type, String playFileUrl,
