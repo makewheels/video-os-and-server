@@ -43,6 +43,20 @@ public class YoutubeService {
             String filename = RuntimeUtil.execForStr("yt-dlp --get-filename -o '%(title)s.%(ext)s' "
                     + "--restrict-filenames " + youtubeUrl);
             filename = filename.replace("'", "");
+            filename = filename.replace("+", "_");
+            filename = filename.replace("%", "_");
+            filename = filename.replace("#", "_");
+            filename = filename.replace("&", "_");
+            filename = filename.replace("\"", "_");
+            filename = filename.replace("<", "_");
+            filename = filename.replace(">", "_");
+            filename = filename.replace("~", "_");
+            filename = filename.replace("^", "_");
+            filename = filename.replace("!", "_");
+            filename = filename.replace("@", "_");
+            filename = filename.replace("$", "_");
+            filename = filename.replace("*", "_");
+            filename = filename.replace("`", "_");
             System.out.println("filename = " + filename);
 
             //下载视频
