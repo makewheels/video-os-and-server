@@ -26,6 +26,10 @@ public class VideoService {
         return file;
     }
 
+    public String getWatchUrl(String videoId) {
+        return Constants.BASE_URL + "/watch?v=" + videoId;
+    }
+
     private String newHlsVideo(
             String videoId, String type, String playFileUrl,
             String m3u8FileUrl, int tsAmount,
@@ -41,7 +45,7 @@ public class VideoService {
         video.setVideoFileFullName(videoFileFullName);
         video.setVideoFileBaseName(videoFileBaseName);
         video.setVideoFileExtension(videoFileExtension);
-        String watchUrl = Constants.BASE_URL + "/watch?v=" + videoId;
+        String watchUrl = getWatchUrl(videoId);
         video.setWatchUrl(watchUrl);
         videoDao.save(video);
         return watchUrl;
@@ -60,14 +64,10 @@ public class VideoService {
         video.setVideoFileFullName(videoFileFullName);
         video.setVideoFileBaseName(videoFileBaseName);
         video.setVideoFileExtension(videoFileExtension);
-        String watchUrl = Constants.BASE_URL + "/watch?v=" + videoId;
+        String watchUrl = getWatchUrl(videoId);
         video.setWatchUrl(watchUrl);
         videoDao.save(video);
         return watchUrl;
-    }
-
-    public static void main(String[] args) {
-
     }
 
     /**

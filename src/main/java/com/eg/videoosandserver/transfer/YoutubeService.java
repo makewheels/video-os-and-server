@@ -38,22 +38,29 @@ public class YoutubeService {
      */
     public String submitNewVideoMission(String youtubeUrl) {
         String videoId = RandomUtil.getVideoId();
-        //获取视频文件信息
-        String filename = RuntimeUtil.execForStr("yt-dlp --get-filename -o '%(title)s.%(ext)s' "
-                + "--restrict-filenames" + youtubeUrl);
-        File workDir = videoService.getWorkDir();
-        //下载视频
-        File webmFile = new File(workDir, videoId + "/download/" + filename);
-        String downloadCmd = "yt-dlp -S 'height:1080' -o '" + filename + "' " + youtubeUrl;
-        executeAndPrint(downloadCmd);
+        new Thread(() -> {
+            //获取视频文件信息
+            String filename = RuntimeUtil.execForStr("yt-dlp --get-filename -o '%(title)s.%(ext)s' "
+                    + "--restrict-filenames " + youtubeUrl);
+            System.out.println("filename = " + filename);
 
-        //上传对象存储
-        String base = BaiduCloudUtil.getObjectStoragePrefix(videoId);
-        BaiduCloudUtil.uploadObjectStorage(webmFile, base + videoId
-                + FilenameUtils.getExtension(webmFile.getName()));
-        //通知
-        String watchUrl = notifyWebmVideo(videoId, webmFile);
-        return watchUrl;
+            //下载视频
+            File workDir = videoService.getWorkDir();
+            File webmFile = new File(workDir, videoId + "/download/" + filename);
+            System.out.println("webmFile = " + webmFile);
+            String downloadCmd = "yt-dlp -S 'height:1080' -o '" + filename + "' " + youtubeUrl;
+            executeAndPrint(downloadCmd);
+
+            //上传对象存储
+            String base = BaiduCloudUtil.getObjectStoragePrefix(videoId);
+            BaiduCloudUtil.uploadObjectStorage(webmFile, base + videoId
+                    + FilenameUtils.getExtension(webmFile.getName()));
+            //通知
+            notifyWebmVideo(videoId, webmFile);
+        }).start();
+
+        //提前先返回播放地址
+        return videoService.getWatchUrl(videoId);
     }
 
     private String notifyWebmVideo(String videoId, File file) {
