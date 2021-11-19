@@ -104,9 +104,9 @@ public class Run {
 
     public static void main(String[] args) {
         //是否转码为720p
-        boolean transcodeTo720p = true;
+        boolean transcodeTo720p = false;
         String videoFilePath
-                = "D:\\Desktop 2021.11.19 - 12.37.35.01.mp4";
+                = "C:\\Users\\thedoflin\\Videos\\Desktop\\Desktop 2021.11.19 - 17.17.20.04.mp4";
         //原始视频
         File originalVideoFile = new File(videoFilePath);
         //最终要转m3u8上传的视频

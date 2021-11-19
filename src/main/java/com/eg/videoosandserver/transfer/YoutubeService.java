@@ -2,10 +2,7 @@ package com.eg.videoosandserver.transfer;
 
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.RuntimeUtil;
-import com.eg.videoosandserver.util.BaiduCloudUtil;
-import com.eg.videoosandserver.util.Constants;
-import com.eg.videoosandserver.util.HttpUtil;
-import com.eg.videoosandserver.util.RandomUtil;
+import com.eg.videoosandserver.util.*;
 import com.eg.videoosandserver.video.VideoService;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.stereotype.Service;
@@ -39,6 +36,7 @@ public class YoutubeService {
      */
     public String submitNewVideoMission(String youtubeUrl) {
         String videoId = RandomUtil.getVideoId();
+        String watchUrl = videoService.getWatchUrl(videoId);
         new Thread(() -> {
             //获取视频文件信息
             String getFilenameCmd = "yt-dlp --get-filename -o '%(title)s.%(ext)s' "
@@ -100,10 +98,14 @@ public class YoutubeService {
             //删除本地下载的文件
             System.out.println("FileUtil.del(new File(workDir, videoId)) = "
                     + FileUtil.del(new File(workDir, videoId)));
+
+            //钉钉通知我
+            DingDingUtil.sendMarkdown("搬运完成 " + videoId + "\n\n" + filename);
+            DingDingUtil.sendMarkdown(watchUrl);
         }).start();
 
         //提前先返回播放地址
-        return videoService.getWatchUrl(videoId);
+        return watchUrl;
     }
 
     private String notifyWebmVideo(String videoId, String playFileUrl, File file) {
