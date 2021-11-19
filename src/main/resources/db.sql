@@ -23,17 +23,17 @@ DROP TABLE IF EXISTS `video`;
 CREATE TABLE `video`
 (
     `id`                   int NOT NULL AUTO_INCREMENT,
-    `create_time`          datetime      DEFAULT NULL,
-    `type`                 varchar(255)  DEFAULT NULL,
-    `m3u8file_url`         varchar(255)  DEFAULT NULL,
-    `video_file_url`       varchar(1023) DEFAULT NULL,
-    `ts_amount`            int           DEFAULT NULL,
-    `video_file_base_name` varchar(255)  DEFAULT NULL,
-    `video_file_extension` varchar(255)  DEFAULT NULL,
-    `video_file_full_name` varchar(255)  DEFAULT NULL,
-    `video_id`             varchar(255)  DEFAULT NULL,
+    `create_time`          datetime                                                 DEFAULT NULL,
+    `type`                 varchar(255)                                             DEFAULT NULL,
+    `m3u8_file_url`        varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci  DEFAULT NULL,
+    `play_file_url`        varchar(1023) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+    `ts_amount`            int                                                      DEFAULT NULL,
+    `video_file_base_name` varchar(255)                                             DEFAULT NULL,
+    `video_file_extension` varchar(255)                                             DEFAULT NULL,
+    `video_file_full_name` varchar(255)                                             DEFAULT NULL,
+    `video_id`             varchar(255)                                             DEFAULT NULL,
     `view_count`           int NOT NULL,
-    `watch_url`            varchar(255)  DEFAULT NULL,
+    `watch_url`            varchar(255)                                             DEFAULT NULL,
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 24
