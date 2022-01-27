@@ -1,9 +1,10 @@
 package com.eg.videoosandserver.video;
 
+import com.alibaba.fastjson.JSON;
 import com.eg.videoosandserver.util.Constants;
 import com.eg.videoosandserver.viewlog.ViewLogService;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.http.HttpHeaders;
 import org.apache.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +18,7 @@ import java.util.Map;
 import java.util.UUID;
 
 @Controller
+@Slf4j
 public class VideoController {
     @Resource
     private VideoService videoService;
@@ -65,6 +67,7 @@ public class VideoController {
     public String watch(@RequestParam("v") String videoId, Map<String, String> map,
                         HttpServletRequest request) {
         Video video = videoService.handleWatchVideo(request, videoId);
+        log.info(JSON.toJSONString(video));
         //返回前端页面
         map.put("title", video.getVideoFileBaseName());
         map.put("videoSourceUrl", video.getM3u8_file_url());
