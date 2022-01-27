@@ -21,7 +21,13 @@ public class ViewLog {
     private int numberOfThisVideo;
     private String videoId;
     private Date viewTime;
-    @Column(length = 1000)
+    @Column(length = 1023)
     private String userAgent;
     private String ip;
+
+    @Column(length = 1023)
+    private String ipJson;
+    private String ipProvince;
+    private String ipCity;
+    private String ipDistrict;
 }

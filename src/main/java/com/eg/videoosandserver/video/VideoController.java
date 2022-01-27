@@ -62,14 +62,7 @@ public class VideoController {
     @RequestMapping("/watch")
     public String watch(@RequestParam("v") String videoId, Map<String, String> map,
                         HttpServletRequest request) {
-        //找到这个视频
-        Video video = videoService.getVideoByVideoId(videoId);
-        //保存viewLog
-        String ip = request.getRemoteAddr();
-        String userAgent = request.getHeader(HttpHeaders.USER_AGENT);
-        viewLogService.handleNewViewLog(video, ip, userAgent);
-        //钉钉通知
-        videoService.watchNotify(video, ip, userAgent);
+        Video video = videoService.handleWatchVideo(request, videoId);
         //返回前端页面
         map.put("title", video.getVideoFileBaseName());
         map.put("videoSourceUrl", video.getM3u8_file_url());
