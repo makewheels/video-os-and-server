@@ -6,6 +6,7 @@ import com.eg.videoosandserver.util.DingDingUtil;
 import com.eg.videoosandserver.util.IpUtil;
 import com.eg.videoosandserver.util.UserAgentParser;
 import com.eg.videoosandserver.viewlog.ViewLogService;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpHeaders;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -131,10 +132,11 @@ public class VideoService {
     public Video handleWatchVideo(HttpServletRequest request, String videoId) {
         //找到这个视频
         Video video = getVideoByVideoId(videoId);
-        String ip = request.getRemoteAddr();
-        String userAgent = request.getHeader(HttpHeaders.USER_AGENT);
+
         //记录以及获取ip，钉钉通知异步完成，先返回给前端页面
         new Thread(() -> {
+            String ip = request.getRemoteAddr();
+            String userAgent = request.getHeader(HttpHeaders.USER_AGENT);
             //获取ip位置
             JSONObject ipJson = IpUtil.getLocationByIp(ip);
             //解析ip位置json
@@ -142,12 +144,18 @@ public class VideoService {
             String province = result.getString("province");
             String city = result.getString("city");
             String district = result.getString("district");
-            String location = province + " " + city + " " + district;
+            String location;
+            if (StringUtils.equals(province, city)) {
+                location = province + " " + district;
+            } else {
+                location = province + " " + city + " " + district;
+            }
             //保存viewLog
             viewLogService.handleNewViewLog(video, ip, ipJson, userAgent);
             //钉钉通知
             watchNotify(video, ip, location, userAgent);
         }).start();
+
         return video;
     }
 
