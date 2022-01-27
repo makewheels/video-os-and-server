@@ -68,10 +68,19 @@ public class VideoController {
                         HttpServletRequest request) {
         Video video = videoService.handleWatchVideo(request, videoId);
         log.info(JSON.toJSONString(video));
-        //返回前端页面
-        map.put("title", video.getVideoFileBaseName());
-        map.put("videoSourceUrl", video.getM3u8_file_url());
-        return "watch";
+        //判断类型，返回前端页面
+        String type = video.getType();
+        if (type.equals(Constants.TYPE_HLS)) {
+            map.put("m3u8_file_url", video.getM3u8_file_url());
+            return "watch";
+        } else if (type.equals(Constants.TYPE_WEBM)) {
+            map.put("playFileUrl", video.getPlayFileUrl());
+            System.out.println("video.getPlayFileUrl() = " + video.getPlayFileUrl());
+            return "watch-webm";
+        } else {
+            map.put("m3u8_file_url", video.getM3u8_file_url());
+            return "watch";
+        }
     }
 
 }
