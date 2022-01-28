@@ -2,7 +2,6 @@ package com.eg.videoosandserver.video;
 
 import com.alibaba.fastjson.JSON;
 import com.eg.videoosandserver.util.Constants;
-import com.eg.videoosandserver.viewlog.ViewLogService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpStatus;
@@ -22,8 +21,6 @@ import java.util.UUID;
 public class VideoController {
     @Resource
     private VideoService videoService;
-    @Resource
-    private ViewLogService viewLogService;
 
     @RequestMapping("healthCheck")
     @ResponseBody
