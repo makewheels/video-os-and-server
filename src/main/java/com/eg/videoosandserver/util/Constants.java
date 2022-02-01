@@ -8,4 +8,5 @@ public class Constants {
 
     public static final String TYPE_HLS = "hls";
     public static final String TYPE_WEBM = "webm";
+
 }

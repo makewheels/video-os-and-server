@@ -1,12 +1,18 @@
 package com.eg.videoosandserver.video;
 
+import com.alibaba.fastjson.JSONObject;
 import com.eg.videoosandserver.util.Constants;
 import com.eg.videoosandserver.util.DingDingUtil;
+import com.eg.videoosandserver.util.IpUtil;
 import com.eg.videoosandserver.util.UserAgentParser;
+import com.eg.videoosandserver.viewlog.ViewLogService;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.http.HttpHeaders;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 import java.io.File;
 import java.util.Date;
@@ -19,6 +25,8 @@ public class VideoService {
 
     @Resource
     private VideoDao videoDao;
+    @Resource
+    private ViewLogService viewLogService;
 
     public File getWorkDir() {
         File file = new File(workDir);
@@ -104,15 +112,51 @@ public class VideoService {
      * @param ip
      * @param userAgentString
      */
-    public void watchNotify(Video video, String ip, String userAgentString) {
+    public void watchNotify(Video video, String ip, String location, String userAgentString) {
+        String markdownText =
+                "# video: " + video.getVideoFileBaseName() + "\n\n" +
+                        "# viewCount: " + video.getViewCount() + "\n\n" +
+                        "# ip: " + ip + "\n\n" +
+                        "# location: " + location + "\n\n" +
+                        "# deviceInfo: " + UserAgentParser.getDeviceInfo(userAgentString);
+        DingDingUtil.sendMarkdown(markdownText);
+    }
+
+    /**
+     * 处理观看视频记录
+     *
+     * @param request
+     * @param videoId
+     * @return
+     */
+    public Video handleWatchVideo(HttpServletRequest request, String videoId) {
+        //找到这个视频
+        Video video = getVideoByVideoId(videoId);
+
+        //记录以及获取ip，钉钉通知异步完成，先返回给前端页面
         new Thread(() -> {
-            String markdownText =
-                    "# video: " + video.getVideoFileBaseName() + "\n\n" +
-                            "# viewCount: " + video.getViewCount() + "\n\n" +
-                            "# ip: " + ip + "\n\n" +
-                            "# deviceInfo: " + UserAgentParser.getDeviceInfo(userAgentString);
-            DingDingUtil.sendMarkdown(markdownText);
+            String ip = request.getRemoteAddr();
+            String userAgent = request.getHeader(HttpHeaders.USER_AGENT);
+            //获取ip位置
+            JSONObject ipJson = IpUtil.getLocationByIp(ip);
+            //解析ip位置json
+            JSONObject result = ipJson.getJSONObject("result");
+            String province = result.getString("province");
+            String city = result.getString("city");
+            String district = result.getString("district");
+            String location;
+            if (StringUtils.equals(province, city)) {
+                location = province + " " + district;
+            } else {
+                location = province + " " + city + " " + district;
+            }
+            //保存viewLog
+            viewLogService.handleNewViewLog(video, ip, ipJson, userAgent);
+            //钉钉通知
+            watchNotify(video, ip, location, userAgent);
         }).start();
+
+        return video;
     }
 
 }

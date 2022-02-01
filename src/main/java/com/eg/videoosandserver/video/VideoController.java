@@ -1,9 +1,9 @@
 package com.eg.videoosandserver.video;
 
+import com.alibaba.fastjson.JSON;
 import com.eg.videoosandserver.util.Constants;
-import com.eg.videoosandserver.viewlog.ViewLogService;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.http.HttpHeaders;
 import org.apache.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,11 +17,10 @@ import java.util.Map;
 import java.util.UUID;
 
 @Controller
+@Slf4j
 public class VideoController {
     @Resource
     private VideoService videoService;
-    @Resource
-    private ViewLogService viewLogService;
 
     @RequestMapping("healthCheck")
     @ResponseBody
@@ -40,6 +39,7 @@ public class VideoController {
                                  @RequestParam("videoId") String videoId,
                                  @RequestParam("type") String type,
                                  @RequestParam("playFileUrl") String playFileUrl,
+
                                  @RequestParam("m3u8FileUrl") String m3u8FileUrl,
                                  @RequestParam("tsAmount") int tsAmount,
                                  @RequestParam("videoFileFullName") String videoFileFullName,
@@ -63,18 +63,9 @@ public class VideoController {
     @RequestMapping("/watch")
     public String watch(@RequestParam("v") String videoId, Map<String, String> map,
                         HttpServletRequest request) {
-        //找到这个视频
-        Video video = videoService.getVideoByVideoId(videoId);
-        //保存viewLog
-        String ip = request.getRemoteAddr();
-        String userAgent = request.getHeader(HttpHeaders.USER_AGENT);
-        viewLogService.handleNewViewLog(video, ip, userAgent);
-        //钉钉通知
-        videoService.watchNotify(video, ip, userAgent);
-
-        //返回前端页面
-        map.put("title", video.getVideoFileBaseName());
-        //判断类型
+        Video video = videoService.handleWatchVideo(request, videoId);
+        log.info(JSON.toJSONString(video));
+        //判断类型，返回前端页面
         String type = video.getType();
         if (type.equals(Constants.TYPE_HLS)) {
             map.put("m3u8_file_url", video.getM3u8_file_url());
