@@ -106,7 +106,7 @@ public class Run {
         //是否转码为720p
         boolean transcodeTo720p = false;
         String videoFilePath
-                = "D:\\2022初一初探溜冰\\2022初一初探溜冰.mp4";
+                = "C:\\Users\\miuser\\Downloads\\Marathon.mp4";
         //原始视频
         File originalVideoFile = new File(videoFilePath);
         //最终要转m3u8上传的视频
