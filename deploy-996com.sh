@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # 修改APP_NAME为云效上的应用名
-APP_NAME=${PIPELINE_NAME}
+APP_NAME=9-96.com-video-os-and-server
 
 PROG_NAME=$0
 ACTION=$1
