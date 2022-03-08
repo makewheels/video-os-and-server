@@ -106,7 +106,7 @@ public class Run {
         //是否转码为720p
         boolean transcodeTo720p = false;
         String videoFilePath
-                = "C:\\Users\\miuser\\Downloads\\Marathon.mp4";
+                = "C:\\Users\\miuser\\Downloads\\20220301110942_instagram_1.mp4";
         //原始视频
         File originalVideoFile = new File(videoFilePath);
         //最终要转m3u8上传的视频
